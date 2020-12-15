@@ -17,8 +17,8 @@ export default (sequelize, DataTypes) => {
                 allowNull: false
             },
             price: {
-                type: DataTypes.FLOAT(10,2),
-                // type: DataTypes.DECIMAL(10,2),
+                // type: DataTypes.FLOAT,
+                type: DataTypes.DECIMAL(10,2),
                 allowNull: false
             },
             dualSim: {
@@ -37,7 +37,7 @@ export default (sequelize, DataTypes) => {
         });
 
         Attributes.associate = function (models) {
-            Attributes.hasOne(models.Product, { foreignKey: 'attributesId', targetKey: 'id' });
+            Attributes.hasOne(models.Products, { foreignKey: 'attributesId', targetKey: 'id' });
         };
 
     return Attributes;

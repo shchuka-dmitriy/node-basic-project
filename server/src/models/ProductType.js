@@ -1,6 +1,6 @@
 'use strict';
 
-const {PHONE, TABLET, NOTEBOOK} = require("../constants/constants");
+const {PHONE, TABLET, NOTEBOOK} = require('../constants/constants');
 
 export default (sequelize, DataTypes) => {
     const ProductType = sequelize.define( 'ProductTypes', {
@@ -21,7 +21,7 @@ export default (sequelize, DataTypes) => {
         });
 
         ProductType.associate = function (models) {
-            ProductType.hasOne(models.Product, { foreignKey: 'productTypeId', targetKey: 'id' });
+            ProductType.hasOne(models.Products, { foreignKey: 'productTypeId', targetKey: 'id' });
         };
 
     return ProductType;

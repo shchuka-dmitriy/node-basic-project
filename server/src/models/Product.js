@@ -16,7 +16,7 @@ export default (sequelize, DataTypes) => {
                 type: DataTypes.INTEGER,
                 allowNull: false,
                 references: {
-                    model: 'ProductType',
+                    model: 'ProductTypes',
                     key: 'id'
                 }
             },
@@ -28,7 +28,6 @@ export default (sequelize, DataTypes) => {
                     key: 'id'
                 }
             }
-
         },
 
         {
@@ -43,7 +42,7 @@ export default (sequelize, DataTypes) => {
         };
 
         Product.associate = function (models) {
-            Product.belongsTo(models.Attribures, {
+            Product.belongsTo(models.Attributes, {
                 foreignKey: 'attributesId',
                 sourceKey: 'id'
             });
