@@ -34,4 +34,20 @@ export class ServerError extends ApplicationError{
   }
 }
 
+export class NotUniqueEmail extends ApplicationError{
+  constructor (message) {
+    super(message || 'this email were already exist', 409);
+  }
+}
 
+export class UserNotFoundError extends ApplicationError{
+  constructor (message) {
+    super(message || 'user with email not found', 404);
+  }
+}
+
+export class TokenError extends ApplicationError{
+  constructor (message) {
+    super(message || 'token error', 408);
+  }
+}
