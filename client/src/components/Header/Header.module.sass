@@ -1,0 +1,42 @@
+.headerContainer
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  width: 100%
+
+  .navContainer
+    width: 100%
+    margin: 0 auto
+    display: flex
+    justify-content: space-around
+    align-items: center
+    border-bottom: 1px solid #ebebeb
+    @media(max-width: 920px)
+      justify-content: center
+    @media(max-width: 700px)
+      justify-content: flex-start
+
+  .loginSignUpHeaders
+    display: flex
+    flex-direction: row
+    align-items: center
+    justify-content: space-around
+    border: 2px solid #b8b8b8
+    margin-bottom: 13px
+    background-color: rgb(212, 158, 111)
+    height: 60px
+
+    .userButtonsContainer
+      padding: 0 10px 0 10px
+      margin-left: 50%
+      align-items: center
+      justify-content: center
+      display: flex
+      border: 2px solid #b8b8b8
+      height: 60px
+      @media(max-width: 600px)
+        margin-left: 60px
+      @media(max-width: 400px)
+        margin-left: 20px
+      @media(max-width: 320px)
+        margin-left: 0
