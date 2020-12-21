@@ -1,8 +1,8 @@
 const validator = schema => {
-    return  values => {
+    return values => {
         const errors = {};
         try {
-             schema.validateSync(values, {abortEarly: false});
+            schema.validateSync(values, {abortEarly: false});
             return errors;
         } catch (err) {
             err.inner.forEach(error => {
