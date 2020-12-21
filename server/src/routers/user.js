@@ -3,6 +3,7 @@ import hashPassword from '../middlewares/hashPassword';
 const userController = require('../controllers/userController');
 const userRouter = express.Router();
 const validatorMiddleware = require('../middlewares/validation/userValidators');
+const checkToken = require('../middlewares/checkToken');
 
 userRouter.route('/registration')
     .post(
@@ -16,5 +17,10 @@ userRouter.route('/login')
         validatorMiddleware.loginValidate,
         userController.authorization,
         userController.createAccessToken );
+
+userRouter.route( '/user(/:id)?' )
+    .get(
+        checkToken.checkToken,
+        userController.getUserById )
 
 export default userRouter;
