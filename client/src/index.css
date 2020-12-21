@@ -8,6 +8,25 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: url(http://cdn2.hubspot.net/hubfs/1980755/world_boxes.png) no-repeat;
+  opacity: 0.2;
+  content: "";
+  z-index: -1;
+  background-size: 100%
+}
+
+@media(max-width: 900px) {
+  body::before {
+    background-size: auto;
+  }
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
