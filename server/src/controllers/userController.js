@@ -50,3 +50,22 @@ module.exports.authorization = async (req, res, next) => {
         next(new ServerError(err));
     }
 };
+
+module.exports.getUserById = async (req, res, next) => {
+    let userId = req.tokenData.userId || req.params.id;
+    try {
+        const user = await db.Users.findOne(  {
+            where: {
+                id: userId
+            },
+            attributes: {
+                exclude: ['password']
+            }
+        } );
+        if (user) {
+            res.send(user)
+        }
+    } catch (e) {
+        next( e );
+    }
+};

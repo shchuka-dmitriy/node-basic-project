@@ -12,15 +12,6 @@ module.exports.getProductType = async (req, res, next) => {
     }
 }
 
-module.exports.createAttributes = (req, res, next) => {
-    db.Attributes.create(req.body.attributes).then(savedAttributes => {
-        req.attributesId = savedAttributes.dataValues.id;
-        next();
-    }).catch(err => {
-        next(new ServerError(err))
-    });
-}
-
 module.exports.createProduct = (req, res, next) => {
     db.Products.create({
         productName: req.body.productName,
@@ -46,35 +37,19 @@ module.exports.updateProduct = (req, res, next) => {
     })
 }
 
-module.exports.updateAttributes = (req, res, next) => {
-    db.Attributes.update( req.body.attributes, { where: { id: req.attributesId }
-    }).then(updatedAttributes => {
-        if (updatedAttributes) {
-            next();
-        }
-    }).catch(err => {
-        next(new ServerError(err))
-    })
-}
-
-module.exports.getAttributesId = async (req, res, next) => {
-    const foundProduct = await db.Products.findOne( {
-        where: {
-            id: req.params.id
-        }} );
-    if (!foundProduct) {
-        throw new ResourceNotFoundError('Product not found!');
-    } else {
-        req.attributesId = foundProduct.attributesId;
-        next();
-    }
-}
-
 module.exports.getProductById = (req, res, next) => {
     db.Products.findOne( {
         where: {
-            id: req.params.id
-        }
+            id: req.params.id,
+        },
+        attributes: { exclude: ['productTypeId', 'attributesId'] },
+        include: [
+            {
+                model: db.Attributes,
+                required: true,
+                attributes: { exclude: ['id'] }
+            }
+        ],
     }).then(foundProduct => {
         if (foundProduct) {
             res.send(foundProduct);
@@ -93,6 +68,32 @@ module.exports.deleteProductById = (req, res, next) => {
         if (removedProduct) {
             res.send('Product removed!');
         }
+    }).catch(err => {
+        next(new ResourceNotFoundError(err))
+    })
+};
+
+module.exports.getProducts = (req, res, next) => {
+    const { body: {limit, offset} } = req;
+    db.Products.findAll({
+        limit,
+        offset: offset ? offset : 0,
+        order: [['productName', 'ASC']],
+        attributes: { exclude: ['productTypeId', 'attributesId'] },
+        include: [
+            {
+                model: db.Attributes,
+                required: true,
+                attributes: { exclude: ['id'] }
+            }
+        ],
+    }).then(products =>
+    {
+        let haveMore = true;
+        if (products.length < 8) {
+            haveMore = false;
+        }
+        res.send( {products, haveMore} );
     }).catch(err => {
         next(new ResourceNotFoundError(err))
     })
