@@ -25,11 +25,6 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
-    // avatar: {
-    //   type: DataTypes.STRING,
-    //   allowNull: false,
-    //   defaultValue: 'anon.png',
-    // },
     accessToken: {
       type: DataTypes.TEXT,
       allowNull: true,

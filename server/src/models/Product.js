@@ -35,7 +35,7 @@ export default (sequelize, DataTypes) => {
         });
 
         Product.associate = function (models) {
-            Product.belongsTo(models.ProductType, {
+            Product.belongsTo(models.ProductTypes, {
                 foreignKey: 'productTypeId',
                 sourceKey: 'id'
             });
