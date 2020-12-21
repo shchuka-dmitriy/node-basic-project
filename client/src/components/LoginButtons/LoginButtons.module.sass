@@ -1,0 +1,50 @@
+@mixin _font($font-weight, $size, $line-height)
+  font-family: "Nunito", sans-serif
+  font-weight: $font-weight
+  font-size: $size
+  line-height: $line-height
+
+.userInfo
+  display: flex
+  justify-content: center
+  align-items: center
+
+  span
+    @include _font(700, 16px, 16px)
+  span + span
+    border-left: 2px solid #b8b8b8
+
+  a
+    height: 60px
+
+  .btn
+    padding: 0 15px
+    color: #ebebeb
+    height: 60px
+    display: flex
+    justify-content: center
+    align-items: center
+    @include _font(700, 14px, 16px)
+
+  .buttonContainer
+    display: flex
+    justify-content: center
+    align-items: center
+
+.buttonContainer + .buttonContainer
+  margin-left: 10px
+
+.button
+  border-radius: 5px
+  border: 0 none
+  color: #fff
+  cursor: pointer
+  font-size: 14px
+  font-weight: 700
+  height: 36px
+  padding: 6px 12px
+  text-align: center
+  width: 94px
+  background: linear-gradient(#fea94a,#ff6808)
+  &:hover
+    background: linear-gradient(#ffb95a,#ff7818)
