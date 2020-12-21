@@ -1,4 +1,5 @@
 @import '../../assets/errorStyles'
+@import '../../assets/flexConstants'
 
 @mixin _font($font-weight, $size, $line-height)
   font-family: "Nunito", sans-serif
@@ -35,6 +36,16 @@
   @media(max-width: 510px)
     margin: 0
 
+.choseRoleContainer
+  @extend .flexColumnCenter
+  align-items: stretch
+  align-self: stretch
+  min-width: 260px
+  margin-left: 20px
+  margin-right: 20px
+  @media(max-width: 850px)
+    align-self: auto
+
 .loginForm
   max-width: 580px
   width: 80%
@@ -67,7 +78,7 @@
         display: flex
         justify-content: center
         align-items: center
-        background-color: #6b8ab1
+        background-color: #d09557
         height: 64px
         padding: 0
         border: 0
@@ -76,7 +87,7 @@
         @include _font(700, 18px, 16px)
         transition: all 0.5s
         &:hover
-          background-color: #415DCB
+          background-color: #a77744
 
         .submitButton
           font-size: 16px
@@ -123,51 +134,3 @@
 
     .errorValid
       @extend .errorValid
-
-.imageUploadContainer
-  display: flex
-  flex-direction: column
-  justify-content: flex-start
-
-  .commonImgStyle
-    width: 50%
-    align-self: center
-    margin: 10px
-    border: 1px solid #d9cfcf
-    border-radius: 5px
-
-  .uploadInputContainer
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: flex-start
-    margin-bottom: 10px
-
-    span
-      font-size: 14px
-      font-weight: 700
-      margin-top: 10px
-      margin-bottom: 10px
-      color: red
-
-    input
-      margin-top: 10px
-      display: none
-      border: none
-      border-radius: 8px
-      color: white
-      background-color: #66afe9
-
-    label
-      margin: 0 auto
-      padding: 10px 15px
-      color: #d9cfcf
-      background-color: #455a89
-      border-radius: 4px
-      align-self: flex-start
-      cursor: pointer
-      @include _font(700, 14px, 14px)
-
-      &:hover
-        color: white
-        background-color: #f27e51
