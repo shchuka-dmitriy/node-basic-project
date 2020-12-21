@@ -6,12 +6,11 @@ import Error from '../Error/Error';
 import { confirmAlert } from 'react-confirm-alert';
 import '../../assets/styles/react-confirm-alert.css';
 import { registrationAction } from "../../actions/actionCreator";
-import CONSTANTS from '../../constants';
-import styles from './UserForm.module.sass';
+import styles from '../../assets/styles/Form.module.sass';
 import customValidator from '../../validators/validator';
 import Schemes from '../../validators/validationSchemes';
 
-const UserForm = ({ handleSubmit, createUser, error }) => {
+const UserForm = ({ handleSubmit, createUser, authError }) => {
 
     const formInputClassNames = {
         container: null,
@@ -28,14 +27,7 @@ const UserForm = ({ handleSubmit, createUser, error }) => {
                 {
                     label: 'Yes',
                     onClick: () => {
-                        // const data = new FormData();
-                        // Object.keys(userData).forEach(key => {
-                        //     data.append(key, userData[key]);
-                        // });
-                        //
-                        // createUser(data);
                         createUser(userData);
-                        // window.location.assign(CONSTANTS.HOME_URL);
                     }
                 },
                 {
@@ -46,7 +38,7 @@ const UserForm = ({ handleSubmit, createUser, error }) => {
 
     return (
         <div className={styles.loginForm}>
-            { error && <Error data={error.data} status={error.status}/> }
+            { authError && <Error data={authError.data} status={authError.status}/> }
             <form onSubmit={ handleSubmit(onSubmit) }>
                 <span className={styles.fieldLabel}>What is your first name?</span>
                 <Field
@@ -81,9 +73,9 @@ const UserForm = ({ handleSubmit, createUser, error }) => {
                     label = 'Password'
                 />
 
-                <div>
-                    <button type='submit'>
-                        <span>
+                <div className={styles.submitContainerWrapper}>
+                    <button type='submit' className={styles.submitContainer}>
+                        <span className={styles.submitButton}>
                             { "registration" }
                         </span>
                     </button>
@@ -93,9 +85,9 @@ const UserForm = ({ handleSubmit, createUser, error }) => {
     );
 };
 
-const mapStateToProps = ({form, auth}) => {
-    const {error} = auth;
-    return {form, error};
+const mapStateToProps = (state) => {
+    const authError = state.auth.error;
+    return {authError};
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -106,6 +98,6 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
     form: 'authForm',
-    enableReinitialize : true,
+    enableReinitialize: true,
     validate: customValidator(Schemes.RegistrationSchema)
 })(UserForm));
