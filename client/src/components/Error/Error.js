@@ -1,31 +1,27 @@
 import React from 'react';
 import styles from './Error.module.sass';
+// import {confirmAlert} from "react-confirm-alert";
 
-const Error=props=>{
-    const getMessage=()=>{
-        const {status,data}=props;
+const Error = ({ status, data }) => {
+
+    const getMessage = () => {
         switch (status) {
             case 404:
-                return data;
+                return data.errors[0].message;
             case 400:
                 return 'Check the input data';
             case 409:
-                return data;
-            case 403:
-                return 'Bank decline transaction';
+                return data.errors[0].message;
             case 406:
-                return data;
+                return data.errors[0].message;
             default:
                 return 'Server Error';
         }
     };
 
-    const {clearError}=props;
-
     return(
         <div className={styles.errorContainer}>
-            <span>{getMessage()}</span>
-            <i className="far fa-times-circle" onClick={()=>clearError()}/>
+            <span>{ getMessage() }</span>
         </div>
     )
 };
