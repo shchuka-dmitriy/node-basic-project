@@ -1,0 +1,21 @@
+@import "../../assets/breakpoints"
+
+.mainContainer
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  border-radius: 5px
+  width: 100%
+  box-shadow: 0 0 30px -9px rgba(0, 0, 0, 0.8)
+  background: rgba(246, 238, 236, 0.5)
+  @media(max-width: 420px)
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+
+  .infoContainer
+    display: flex
+    flex-direction: column
+    width: 100%
+    margin: 15px
