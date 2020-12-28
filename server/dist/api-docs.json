@@ -1,0 +1,311 @@
+{
+   "swagger":"2.0",
+   "info":{
+      "version":"1.0.0",
+      "title":"Sample spec",
+      "description":"Sample spec for Swagger",
+      "termsOfService":"http://swagger.io/terms/"
+   },
+   "basePath":"/api/v1",
+   "tags":[
+      {
+         "name":"Product",
+         "description":"API for something"
+      }
+   ],
+   "schemes":[
+      "http"
+   ],
+   "consumes":[
+      "application/json"
+   ],
+   "produces":[
+      "application/json"
+   ],
+   "paths":{
+      "/products":{
+         "post":{
+            "tags":[
+               "Product"
+            ],
+            "summary": "Get products",
+            "description":"Get all products",
+            "operationId":"findAll",
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"Products getting parameters",
+                  "in":"body",
+                  "description":"Get all products from database",
+                  "required": false,
+                  "schema":{
+                     "$ref":"#/definitions/get_products"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"get response",
+                  "schema":{
+                     "$ref":"#/definitions/get_products_response"
+                  }
+               },
+               "400": {
+                  "description":"The request could not be understood by the server due to malformed syntax."
+               },
+               "404":{
+                  "description":"Products not found"
+               },
+               "500":{
+                  "description":"Unexpected server error."
+               }
+            }
+         }
+      },
+      "/product/{productId}":{
+         "delete":{
+            "tags":[
+               "Product"
+            ],
+            "summary": "Delete one product",
+            "description":"Deletes one product",
+            "operationId":"delete",
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"productId",
+                  "in":"path",
+                  "description":"Product id to delete",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Delete response",
+                  "schema":{
+                     "$ref":"#/definitions/deleteRes"
+                  }
+               },
+               "400": {
+                  "description":"Bad request. Product ID must be an integer and larger than 0."
+               },
+               "404":{
+                  "description":"Product with the this ID was not found"
+               },
+               "500":{
+                  "description":"Unexpected server error."
+               }
+            }
+         },
+         "get":{
+            "tags":[
+               "Product"
+            ],
+            "summary": "Get one product",
+            "description":"Returns one product",
+            "operationId":"findById",
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"productId",
+                  "in":"path",
+                  "description":"Product id to get",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"response",
+                  "schema":{
+                     "$ref":"#/definitions/productItem"
+                  }
+               },
+               "400": {
+                  "description":"Bad request. Product ID must be an integer and larger than 0."
+               },
+               "404":{
+                  "description":"Product with the this ID was not found"
+               },
+               "500":{
+                  "description":"Unexpected server error."
+               }
+            }
+         },
+         "patch":{
+            "tags":[
+               "Product"
+            ],
+            "summary": "Update product",
+            "description":"Update one product",
+            "operationId":"update",
+            "produces":[
+               "application/json"
+            ],
+            "parameters":[
+               {
+                  "name":"productId",
+                  "in":"path",
+                  "description":"Product id to update",
+                  "required":true,
+                  "type":"integer",
+                  "format":"int64"
+               },
+               {
+                  "name":"Products updating parameters",
+                  "in":"body",
+                  "description":"Update selected parameters",
+                  "required": false,
+                  "schema":{
+                     "$ref":"#/definitions/updateProduct"
+                  }
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"response",
+                  "schema":{
+                     "$ref":"#/definitions/productItem"
+                  }
+               },
+               "400": {
+                  "description":"Bad request. Product ID must be an integer and larger than 0."
+               },
+               "404":{
+                  "description":"Product with the this ID was not found"
+               },
+               "500":{
+                  "description":"Unexpected server error."
+               }
+            }
+         }
+      }
+   },
+   "definitions":{
+      "get_products":{
+         "properties":{
+            "limit":{
+               "required":false,
+               "type":"integer",
+               "format":"int64",
+               "example":5
+            },
+            "offset":{
+               "required":false,
+               "type":"integer",
+               "format":"int64",
+               "example":2
+            }
+         }
+      },
+      "get_products_response":{
+         "properties":{
+            "products": {
+               "required":true,
+               "type":"array",
+               "items": {
+                  "$ref": "#/definitions/productItem"
+               }
+            },
+            "haveMore":{
+               "required": true,
+               "type": "boolean",
+               "example": true
+            }
+         }
+      },
+      "productItem": {
+         "type": "object",
+         "properties": {
+            "id":{
+               "required":true,
+               "type":"integer",
+               "format":"int64",
+               "example":2
+            },
+            "name":{
+               "required":true,
+               "type":"string",
+               "example":"Samsung"
+            },
+            "Attributes":{
+               "type":"array",
+               "items": {
+                  "$ref": "#/definitions/productAttributes"
+               }
+            }
+         }
+      },
+      "updateProduct":{
+         "type": "object",
+         "properties": {
+            "productName":{
+               "required":true,
+               "type":"string",
+               "example":"Samsung"
+            },
+            "weight":{
+               "type":"integer",
+               "format":"int64",
+               "example":10
+            },
+            "color":{
+               "type":"string",
+               "example":"red"
+            },
+            "price":{
+               "type":"number",
+               "format":"double",
+               "example":10.10
+            },
+            "dualSim":{
+               "type":"boolean",
+               "example":true
+            },
+            "videoCard":{
+               "type":"string",
+               "example":"GeForce GTX 1070"
+            }
+         }
+      },
+      "productAttributes":{
+         "type":"object",
+         "properties": {
+            "weight":{
+               "type":"integer",
+               "format":"int64",
+               "example":1
+            },
+            "color":{
+               "type":"string",
+               "example":"red"
+            },
+            "price":{
+               "type":"number",
+               "format":"double",
+               "example":10.10
+            },
+            "dualSim":{
+               "type":"boolean",
+               "example":true
+            },
+            "videoCard":{
+               "type":"string",
+               "example":"GeForce GTX 1070"
+            }
+         }
+      },
+      "deleteRes":{
+         "example":"Product with id 5 removed!"
+      }
+   }
+}
