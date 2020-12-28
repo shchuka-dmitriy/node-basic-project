@@ -60,13 +60,14 @@ module.exports.getProductById = (req, res, next) => {
 }
 
 module.exports.deleteProductById = (req, res, next) => {
+    const deletedProductId = req.params.id;
     db.Products.destroy({
         where: {
-            id: req.params.id
+            id: deletedProductId
         }
     }).then(removedProduct => {
         if (removedProduct) {
-            res.send('Product removed!');
+            res.send(`Product with id: ${deletedProductId} removed!`);
         }
     }).catch(err => {
         next(new ResourceNotFoundError(err))
